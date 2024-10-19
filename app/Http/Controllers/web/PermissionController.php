@@ -15,7 +15,7 @@ class PermissionController extends Controller
     public function index()
     {
         $records = Permission::paginate(20);
-        return view('permissons.index', ['records' => $records]);
+        return view('permissions.index', ['records' => $records]);
     }
 
     /**
@@ -23,7 +23,7 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('permissons.create');
+        return view('permissions.create');
         //
     }
 
@@ -35,24 +35,24 @@ class PermissionController extends Controller
 
         // validate the request
         $request->validate([
-            'name' => 'required|string|unique:permissons,name',
-            'permissions_list' => 'required|array'
+            'name' => 'required|string|unique:permissions,name',
+            'display_name' => 'required|string|unique:permissions,display_name'
         ], [
             'name.required' => 'اسم الرتبه مطلوب',
             'name.unique' => 'هذا الاسم موجود بالفعل',
-            'permissions_list.required' => 'الصلاحيات مطلوبه',
+            'display_name.required' => 'اسم العرض مطلوب',
+            'display_name.unique' => 'اسم العرض موجود بالفعل',
 
         ]);
 
         // store the record
         Permission::create([
-            'name' => $request->name
-        ])->permissions()->attach($request->permissions_list);
-
-
+            'name' => $request->name,
+            'display_name' => $request->display_name
+        ]);
 
         // redirect to the index page
-        return redirect()->route('permissons.index')->with('success', 'تم اضافه الرتبه  وصلاحياته  بنجاح');
+        return redirect()->route('permissions.index')->with('success', 'تم اضافه الصلاحيه   بنجاح');
     }
 
     /**
@@ -69,7 +69,7 @@ class PermissionController extends Controller
     public function edit(string $id)
     {
         $record = Permission::findOrFail($id);
-        return view('permissons.edit', ['record' => $record]);
+        return view('permissions.edit', ['record' => $record]);
     }
 
     /**
@@ -77,19 +77,24 @@ class PermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         // validate the request
         $request->validate([
-            'name' => 'required|string|max:255',
-            'permissions_list' => 'array'
+            'name' => 'required|string|unique:permissions,name,' . $id,
+            'display_name' => 'required|string|unique:permissions,display_name,' . $id
         ], [
             'name.required' => 'اسم الرتبه مطلوب',
+            'name.unique' => 'هذا الاسم موجود بالفعل',
+            'display_name.required' => 'اسم العرض مطلوب',
+            'display_name.unique' => 'اسم العرض موجود بالفعل',
+
         ]);
 
         // update the record
         Permission::findOrFail($id)->update($request->all());
 
         // redirect to the index page
-        return redirect()->route('permissons.index')->with('success', 'تم تعديل الرتبه بنجاح');
+        return back()->with('success', 'تم تعديل الصلاحيه بنجاح');
     }
 
     /**
@@ -101,6 +106,6 @@ class PermissionController extends Controller
         Permission::findOrFail($id)->delete();
 
         // redirect to the index page
-        return redirect()->route('permissons.index')->with('success', 'تم حذف الرتبه بنجاح');
+        return redirect()->route('permissions.index')->with('success', 'تم حذف الصلاحيه بنجاح');
     }
 }

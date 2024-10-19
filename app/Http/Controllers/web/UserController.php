@@ -5,6 +5,7 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -22,6 +23,7 @@ class UserController extends Controller
      */
     public function create()
     {
+
         return view('users.create');
         //
     }
@@ -32,26 +34,34 @@ class UserController extends Controller
     public function store(Request $request)
     {
 
+
         // validate the request
         $request->validate([
-            'name' => 'required|string|unique:users,name',
-            'permissions_list' => 'required|array'
+            'name' => 'required|string',
+            'password' => 'required|string|confirmed',
+            "email" => 'required|email|unique:users,email',
+            'roles_list' => 'required|array'
         ], [
             'name.required' => 'اسم الرتبه مطلوب',
-            'name.unique' => 'هذا الاسم موجود بالفعل',
-            'permissions_list.required' => 'الصلاحيات مطلوبه',
+            'email.unique' => 'هذا الايميل موجود بالفعل',
+            'email.required' => 'الايميل مطلوب',
+            'password.required' => 'كلمه المرور مطلوبه',
+            'password.confirmed' => 'كلمه المرور غير متطابقه',
+            'roles_list.required' => 'الرتب مطلوبه',
 
         ]);
 
         // store the record
         User::create([
-            'name' => $request->name
-        ])->permissions()->attach($request->permissions_list);
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password
+        ])->roles()->attach($request->roles_list);
 
 
 
         // redirect to the index page
-        return redirect()->route('users.index')->with('success', 'تم اضافه الرتبه  وصلاحياته  بنجاح');
+        return redirect()->route('users.index')->with('success', 'تم اضافه  المستخدم  وصلاحياته  بنجاح');
     }
 
     /**
@@ -59,7 +69,10 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+
+        $record = User::findOrFail($id);
+
+        return view('users.show', ['record' => $record]);
     }
 
     /**
@@ -76,31 +89,37 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
+
         // validate the request
         $request->validate([
-            'name' => 'required|string|unique:users,name,' . $id,
-            'permissions_list' => 'required|array'
+            'name' => 'required|string',
+            'password' => 'confirmed',
+            "email" => 'required|email|unique:users,email,' . $id,
+            'roles_list' => 'required|array'
         ], [
             'name.required' => 'اسم الرتبه مطلوب',
-            'name.unique' => 'هذا الاسم موجود بالفعل',
-            'permissions_list.required' => 'الصلاحيات مطلوبه',
+            'email.unique' => 'هذا الايميل موجود بالفعل',
+            'email.required' => 'الايميل مطلوب',
+            'password.required' => 'كلمه المرور مطلوبه',
+            'password.confirmed' => 'كلمه المرور غير متطابقه',
+            'roles_list.required' => 'الرتب مطلوبه',
+
         ]);
 
-        // update the record
-        $role =  User::findOrFail($id);
-        $role->update([
-            'name' => $request->name
+        // store the record
+        $user = User::findOrFail($id);
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password
         ]);
 
-
-        if ($request->permissions_list) {
-            $role->permissions()->sync($request->permissions_list);
-        }
+        $user->roles()->sync($request->roles_list);
 
 
 
         // redirect to the index page
-        return back()->with('success', 'تم تعديل الرتبه بنجاح');
+        return back()->with('success', 'تم تعديل  المستخدم  وصلاحياته  بنجاح');
     }
 
     /**
@@ -112,6 +131,6 @@ class UserController extends Controller
         User::findOrFail($id)->delete();
 
         // redirect to the index page
-        return redirect()->route('users.index')->with('success', 'تم حذف الرتبه بنجاح');
+        return redirect()->route('users.index')->with('success', 'تم حذف المستخدم بنجاح');
     }
 }

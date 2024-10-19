@@ -6,6 +6,7 @@ use App\Http\Controllers\web\CityController;
 use App\Http\Controllers\web\ClientController;
 use App\Http\Controllers\web\ContactController;
 use App\Http\Controllers\web\GovernorateController;
+use App\Http\Controllers\web\PermissionController;
 use App\Http\Controllers\web\PostController;
 use App\Http\Controllers\web\ProfileController;
 use App\Http\Controllers\web\RequestController;
@@ -27,7 +28,7 @@ Route::get('/dashboard', function () {
 
 
 // Dashboard Routes 
-Route::middleware('auth')->group(function () {
+Route::middleware(['auth', 'role:admin'])->group(function () {
     // Governorates
     Route::resource('governorate', GovernorateController::class);
     Route::resource('city', CityController::class);
@@ -46,6 +47,7 @@ Route::middleware('auth')->group(function () {
 
     // Roles , Permissions , Users 
     Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
     Route::resource('users', UserController::class);
 });
 

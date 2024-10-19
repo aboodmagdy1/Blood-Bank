@@ -1,5 +1,4 @@
-@inject('city','App\Models\City' )
-@inject('bloodType','App\Models\BloodType' )
+
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -10,9 +9,11 @@
 
     {{-- Main Content  --}}
         <x-content-wrapper>
+            @role('admin')
             <x-slot name='actions'>
                 <a href="{{route('users.create')}}" class="btn btn-primary">Add User</a>
             </x-slot>
+            @endrole
 
             <x-slot name='body'>
                 <x-table>
@@ -34,11 +35,7 @@
                             <th>
                                 {{-- toggle active --}}
                                 @role('admin')
-                                <form action="{{route('users.update',$record->id)}}" method="POST" style="display:inline-block">
-                                    @method('PUT')
-                                    @csrf
-                                    <button type="submit" class="btn btn-{{$record->is_active ? 'danger' : 'success'}}">{{$record->is_active ? 'Deactivate' : 'Activate'}}</button>
-                                </form>
+                                <a href="{{route('users.edit',$record->id)}}" class="btn btn-success">Edit</a>
 
                                 <form action="{{route('users.destroy',$record->id)}}" method="POST" style="display:inline-block">
                                     @csrf

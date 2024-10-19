@@ -27,7 +27,7 @@
                                          <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="permissions_list[]" value="{{$permission->id}}">
-                                                {{$permission->name}}
+                                                {{$permission->display_name}}
                                             </label>
 
                                          </div>

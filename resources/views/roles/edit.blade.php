@@ -31,7 +31,7 @@
                                             <input type="checkbox" name="permissions_list[]" value="{{$permission->id}}"
                                             @if($record->hasPermissionTo($permission->name)) checked @endif
                                             >
-                                            {{$permission->name}}
+                                            {{$permission->display_name}}
                                         </label>
 
                                      </div>

@@ -111,12 +111,12 @@
                     </a>
                 </li>
 
-                {{-- <li class="nav-item">
-                    <a href="/user" class="nav-link {{ request()->is('user') ? 'active' : '' }}">
-                        <i class="nav-icon fa fa-user"></i>
-                        <p>Users</p>
+                <li class="nav-item">
+                    <a href="/permissions" class="nav-link {{ request()->is('user') ? 'active' : '' }}">
+                        <i class="nav-icon fa fa-check"></i>
+                        <p>Permissions</p>
                     </a>
-                </li> --}}
+                </li>
 
                 
                 <!-- Add more nav-items as needed -->
