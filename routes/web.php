@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\front\MainController;
 use App\Http\Controllers\web\BloodTypeController;
 use App\Http\Controllers\web\CategoryController;
 use App\Http\Controllers\web\CityController;
@@ -15,20 +16,35 @@ use App\Http\Controllers\web\SettingController;
 use App\Http\Controllers\web\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+Route::controller(MainController::class)->group(function () {
+    // webiste routes 
+    Route::get('/', 'home')->name('home');
+    Route::get('/about', 'about')->name('about'); //about the app
+    Route::get('/contact-us', 'contact')->name('contact-us');
+    Route::get('/donation-requests', 'requests')->name('donation-requests');
+    Route::get('/donation-requests/{request}', 'showRequest');
+
+
+    Route::get('/posts', 'posts')->name('posts');
+    Route::get('/posts/{post}', 'showPost');
+
+    Route::middleware('auth:client-web')->group(function () {
+        // Favorite Posts , make favorites 
+        Route::get('/toggle-favourite', 'toggleFavourite')->name('toggleFavourite');
+        // create request 
+        // show profile
+        // edit profile
+        // logout 
+    });
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
 
 
 
 
 
 // Dashboard Routes 
-Route::middleware(['auth', 'role:admin'])->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Governorates
     Route::resource('governorate', GovernorateController::class);
     Route::resource('city', CityController::class);
@@ -49,6 +65,6 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
     Route::resource('users', UserController::class);
+    Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
 });
-
 require __DIR__ . '/auth.php';
