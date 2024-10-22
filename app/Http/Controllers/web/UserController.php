@@ -108,13 +108,11 @@ class UserController extends Controller
 
         // store the record
         $user = User::findOrFail($id);
-        $user->update([
+        tap($user->update([
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password
-        ]);
-
-        $user->roles()->sync($request->roles_list);
+        ]))->roles()->sync($request->roles_list);
 
 
 

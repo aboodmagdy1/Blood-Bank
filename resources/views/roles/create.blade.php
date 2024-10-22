@@ -34,6 +34,9 @@
                                     </div>
                                 @endforeach
                             </div>
+                            @error('permissions_list')
+                            <x-input-error :messages="$message" />
+                          @enderror 
                         </div>
 
 
