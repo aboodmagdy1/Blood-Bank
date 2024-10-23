@@ -57,14 +57,14 @@ class MainController extends Controller
 
     //-------------------------------------------- Posts  --------------------------------------------
 
-    public function posts(Request $request)
+    public function listPosts(Request $request)
     {
         $posts = Post::query();
         if ($request->filled('category-id')) {
             $posts->where('category_id', $request->input('category-id'));
         }
-        $posts = $posts->paginate(5);
-        return view('front.posts', ['posts' => $posts]);
+        $posts = $posts->paginate(8);
+        return view('front.listPosts', ['posts' => $posts]);
     }
 
     public function showPost(string $id)

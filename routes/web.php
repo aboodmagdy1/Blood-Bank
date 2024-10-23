@@ -31,7 +31,7 @@ Route::controller(MainController::class)->group(function () {
     Route::get('/donation-requests/{request}', 'showRequest');
 
 
-    Route::get('/posts', 'posts')->name('posts');
+    Route::get('/posts', 'listPosts')->name('posts');
     Route::get('/posts/{post}', 'showPost');
 });
 // website auth routes
