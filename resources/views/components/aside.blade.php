@@ -1,6 +1,6 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4 h-max">
     <!-- Brand Logo -->
-    <a href="/dashboard" class="brand-link">
+    <a href="{{route('dashboard')}}" class="brand-link">
         <img
             src="{{ asset('dist/img/AdminLTELogo.png') }}"
             alt="AdminLTE Logo"
@@ -35,84 +35,84 @@
                 
                 <!-- Each link is now a single nav-item -->
                 <li class="nav-item">
-                    <a href="/governorate" class="nav-link {{ request()->is('governorate') ? 'active' : '' }}">
+                    <a href="/admin/governorate" class="nav-link {{ request()->is('admin/governorate') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-globe"></i>
                         <p>Governorates</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/city" class="nav-link {{ request()->is('city') ? 'active' : '' }}">
+                    <a href="/admin/city" class="nav-link {{ request()->is('admin/city') ? 'active' : '' }}">
                         <i class="nav-icon far fa fa-flag"></i>
                         <p>Cities</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/blood-type" class="nav-link {{ request()->is('blood-type') ? 'active' : '' }}">
+                    <a href="/admin/blood-type" class="nav-link {{ request()->is('admin/blood-type') ? 'active' : '' }}">
                         <i class="nav-icon far fa fa-tint"></i>
                         <p>Blood Types</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/donation-request" class="nav-link {{ request()->is('donation-request') ? 'active' : '' }}">
+                    <a href="/admin/donation-request" class="nav-link {{ request()->is('admin/donation-request') ? 'active' : '' }}">
                         <i class="nav-icon far fa fa-medkit "></i>
                         <p>Donation Requests</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/category" class="nav-link {{ request()->is('category') ? 'active' : '' }}">
+                    <a href="/admin/category" class="nav-link {{ request()->is('admin/category') ? 'active' : '' }}">
                         <i class="nav-icon far fa fa-list"></i>
                         <p>Categories</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/post" class="nav-link {{ request()->is('post') ? 'active' : '' }}">
+                    <a href="/admin/post" class="nav-link {{ request()->is('admin/post') ? 'active' : '' }}">
                         <i class="nav-icon far fa fa-book"></i>
                         <p>Posts</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/client" class="nav-link {{ request()->is('client') ? 'active' : '' }}">
+                    <a href="/admin/client" class="nav-link {{ request()->is('admin/client') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-users"></i>
                         <p>Clients</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/contact" class="nav-link {{ request()->is('contact') ? 'active' : '' }}">
+                    <a href="/admin/contact" class="nav-link {{ request()->is('admin/contact') ? 'active' : '' }}">
                         <i class="nav-icon far fa fa-info-circle"></i>
                         <p>Contacts</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/setting" class="nav-link {{ request()->is('setting') ? 'active' : '' }}">
+                    <a href="/admin/setting" class="nav-link {{ request()->is('admin/setting') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-cogs"></i>
                         <p>Settings</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/users" class="nav-link {{ request()->is('user') ? 'active' : '' }}">
+                    <a href="/admin/users" class="nav-link {{ request()->is('admin/users') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-user"></i>
                         <p>Users</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/roles" class="nav-link {{ request()->is('user') ? 'active' : '' }}">
+                    <a href="/admin/roles" class="nav-link {{ request()->is('admin/roles') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-id-card"></i>
                         <p>Roles</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="/permissions" class="nav-link {{ request()->is('user') ? 'active' : '' }}">
+                    <a href="/admin/permissions" class="nav-link {{ request()->is('admin/permissions') ? 'active' : '' }}">
                         <i class="nav-icon fa fa-check"></i>
                         <p>Permissions</p>
                     </a>
