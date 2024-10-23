@@ -84,9 +84,12 @@
                             <img src="{{asset('front/assets/imgs/p2.jpg')}}" class="card-img-top" alt="...">
                             <a href="{{url('posts/'.$post->id)}}" class="click">المزيد</a>
                         </div>
+                        @auth('web-client')
                         <button href="#" class="favourite">
                             <i id="{{$post->id}}" class="text-danger far fa-heart {{$post->is_favourite? 'fas':''}}" onclick="toggleFavourite(this)"></i>
                         </button>
+                            
+                        @endauth
 
                         <div class="card-body">
                             <h5 class="card-title">{{$post->title}}</h5>

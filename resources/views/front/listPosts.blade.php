@@ -16,9 +16,11 @@
                             <div class="photo position-relative">
                                 <img src="{{asset('front/assets/imgs/p2.jpg')}}" class="card-img-top" alt="Article Image">
                             </div>
+                            @auth('web-client')
                             <a href="#" class="favourite position-absolute top-0 end-0 m-3">
                                 <i id="{{$post->id}}" class="text-danger far fa-heart {{$post->is_favourite ? 'fas' : ''}}" onclick="toggleFavourite(this)"></i>
                             </a>
+                            @endauth
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title font-weight-bold">{{$post->title}}</h5>
                                 <p class="card-text text-muted flex-grow-1">{{ Str::limit($post->content, 100) }}</p>
