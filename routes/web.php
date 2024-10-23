@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\front\MainController;
 use App\Http\Controllers\web\BloodTypeController;
 use App\Http\Controllers\web\CategoryController;
@@ -14,6 +15,7 @@ use App\Http\Controllers\web\RequestController;
 use App\Http\Controllers\web\RoleController;
 use App\Http\Controllers\web\SettingController;
 use App\Http\Controllers\web\UserController;
+use App\Http\Middleware\RedirectIfNotClient;
 use Illuminate\Support\Facades\Route;
 
 Route::controller(MainController::class)->group(function () {
@@ -27,24 +29,23 @@ Route::controller(MainController::class)->group(function () {
 
     Route::get('/posts', 'posts')->name('posts');
     Route::get('/posts/{post}', 'showPost');
+});
+// website auth routes
+Route::middleware('guest:web-client')->controller(AuthController::class)->group(function () {
+    Route::get('/client-register', 'showClientRegisterForm')->name('client.register');
+    Route::post('/client-register', 'clientRegister')->name('client.register.submit');
 
-    Route::middleware('auth:client-web')->group(function () {
-        // Favorite Posts , make favorites 
-        Route::get('/toggle-favourite', 'toggleFavourite')->name('toggleFavourite');
-        // create request 
-        // show profile
-        // edit profile
-        // logout 
-    });
+    Route::get('/client-login', [AuthController::class, 'showClientLoginForm'])->name('client.login');
+    Route::post('/client-login', [AuthController::class, 'clientLogin'])->name('client.login.submit');
 });
 
-
+Route::post('/client-logout', [AuthController::class, 'clientLogout'])->name('client.logout')->middleware('auth-client');
 
 
 
 
 // Dashboard Routes 
-Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth:web', 'role:admin'])->prefix('admin')->group(function () {
     // Governorates
     Route::resource('governorate', GovernorateController::class);
     Route::resource('city', CityController::class);

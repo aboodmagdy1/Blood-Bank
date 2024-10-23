@@ -30,20 +30,20 @@
                 </ul>
                 
                 <!--not a member-->
-               @guest
+               @guest('web-client')
                     <div class="accounts">
-                        <a href="create-account.html" class="create">إنشاء حساب جديد</a>
-                        <a href="signin-account.html" class="signin">الدخول</a>
+                        <a href="{{route('client.register')}}" class="create">إنشاء حساب جديد</a>
+                        <a href="{{route('client.login')}}" class="signin">الدخول</a>
                     </div>
                @endguest
                 
                 <!--I'm a member  -->
 
-                @auth
-                <a href="/donation-request" class="donate">
-                    <img src="{{asset('front/assets/imgs/transfusion.svg')}}">
-                    <p>طلب تبرع</p>
-                </a>
+                @auth('web-client')
+                    <a href="/donation-request" class="donate">
+                        <img src="{{asset('front/assets/imgs/transfusion.svg')}}">
+                        <p>طلب تبرع</p>
+                    </a>
 
                 @endauth
               

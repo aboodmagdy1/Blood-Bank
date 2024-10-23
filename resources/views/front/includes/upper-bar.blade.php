@@ -32,49 +32,50 @@
                         </div>
                     </div>
                     
-                    @auth
-                        
+                    @auth('web-client')        
                     <!--I'm a member -->
-
-                    <div class="member">
-                        <p class="welcome">مرحباً بك</p>
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{auth()->user()->name}}
-                                <i class="fas fa-chevron-down"></i>
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="/">
-                                    <i class="fas fa-home"></i>
-                                    الرئيسية
-                                </a>
-                                <a class="dropdown-item" href="/profile">
-                                    <i class="far fa-user"></i>
-                                    معلوماتى
-                                </a>
-                                <a class="dropdown-item" href="/notification-settings">
-                                    <i class="far fa-bell"></i>
-                                    اعدادات الاشعارات
-                                </a>
-                                <a class="dropdown-item" href="/my-favourite">
-                                    <i class="far fa-heart"></i>
-                                    المفضلة
-                                </a>
-                                <a class="dropdown-item" href="report">
-                                    <i class="far fa-comments"></i>
-                                    ابلاغ
-                                </a>
-                                <a class="dropdown-item" href="contact">
-                                    <i class="fas fa-phone-alt"></i>
-                                    تواصل معنا
-                                </a>
-                                <a class="dropdown-item" href="logout">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    تسجيل الخروج
-                                </a>
+                        <div class="member">
+                            <p class="welcome">مرحباً بك</p>
+                            <div class="dropdown">
+                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    {{auth()->guard('web-client')->user()->name}}
+                                    <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="{{route('home')}}">
+                                        <i class="fas fa-home"></i>
+                                        الرئيسية
+                                    </a>
+                                    <a class="dropdown-item" href="/profile">
+                                        <i class="far fa-user"></i>
+                                        معلوماتى
+                                    </a>
+                                    <a class="dropdown-item" href="/notification-settings">
+                                        <i class="far fa-bell"></i>
+                                        اعدادات الاشعارات
+                                    </a>
+                                    <a class="dropdown-item" href="/my-favourite">
+                                        <i class="far fa-heart"></i>
+                                        المفضلة
+                                    </a>
+                                    <a class="dropdown-item" href="report">
+                                        <i class="far fa-comments"></i>
+                                        ابلاغ
+                                    </a>
+                                    <a class="dropdown-item" href="contact">
+                                        <i class="fas fa-phone-alt"></i>
+                                        تواصل معنا
+                                    </a>
+                                     <form action="{{route('client.logout')}}" method="POST">
+                                        @csrf
+                                        <button class="dropdown-item" href="logout" type="submit">
+                                            <i class="fas fa-sign-out-alt"></i>
+                                            تسجيل الخروج
+                                        </button>
+                                     </form>
+                                </div>
                             </div>
                         </div>
-                    </div>
                     @endauth
                     
                 </div>

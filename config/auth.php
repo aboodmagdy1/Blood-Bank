@@ -45,6 +45,10 @@ return [
         'api' => [
             'driver' => 'token',
             'provider' => 'clients'
+        ],
+        'web-client' => [
+            'driver' => 'session',
+            'provider' => 'clients'
         ]
     ],
 
