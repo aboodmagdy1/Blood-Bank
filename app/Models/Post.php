@@ -9,7 +9,7 @@ class Post extends Model
 
     protected $table = 'posts';
     public $timestamps = true;
-    protected $fillable = array('title', 'content', 'category_id');
+    protected $fillable = array('title', 'content', 'category_id', 'is_favourite');
 
     public function post_category()
     {

@@ -14,6 +14,7 @@ class CreatePostsTable extends Migration
 			$table->timestamps();
 			$table->string('title');
 			$table->text('content');
+			$table->boolean('is_favourite');
 			$table->integer('category_id')->unsigned();
 		});
 	}

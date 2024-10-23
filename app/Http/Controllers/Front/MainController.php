@@ -8,6 +8,7 @@ use App\Models\DonationRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use function App\utils\responseJson;
 
 class MainController extends Controller
 {
@@ -48,9 +49,12 @@ class MainController extends Controller
     }
     public function toggleFavourite(Request $request)
     {
+        $post = Post::findOrFail($request->input('post_id'));
+        $post->is_favourite = !$post->is_favourite;
+        $post->save();
 
-        $request->user()->posts()->toggle($request->input('post_id'));
-        return view('front.home');
+        $toggle =  $request->user('web-client')->posts()->toggle($request->input('post_id'));
+        return responseJson(1, 'success', $toggle);
     }
 
     //  Donation Requests 

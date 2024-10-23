@@ -24,7 +24,9 @@
                     <h4>{{$post->title}}</h4>
                 </div>
                 <div class="icon col-6">
-                    <button type="button"><i class="far fa-heart"></i></button>
+                    <button href="#" class="favourite">
+                        <i id="{{$post->id}}" class="far fa-heart {{$post->is_favourite? 'fas':''}}" onclick="toggleFavourite(this)"></i>
+                    </button>
                 </div>
             </div>
             
@@ -55,9 +57,9 @@
                                     <img src="{{asset('front/assets/imgs/p2.jpg')}}" class="card-img-top" alt="...">
                                     <a href="{{url('posts/'. $post->id)}}" class="click">المزيد</a>
                                 </div>
-                                <a href="#" class="favourite">
-                                    <i class="far fa-heart"></i>
-                                </a>
+                                <button href="#" class="favourite">
+                                    <i id="{{$post->id}}" class="far fa-heart {{$post->is_favourite? 'fas':''}}" onclick="toggleFavourite(this)"></i>
+                                </button>
                                 
                                 <div class="card-body">
                                     <h5 class="card-title">{{$post->title}}</h5>
@@ -77,3 +79,38 @@
     
 </div>
 @endsection
+
+
+@push('scripts')
+
+<script>
+    function toggleFavourite(heart){
+    // Toggle between filled and empty heart
+  
+
+    $(document).ready(function(){
+        var post_id = heart.id;
+       $.ajax({
+            url: "{{route('client.toggleFavourite')}}",
+            type:'POST',
+            headers:{'X-CSRF-TOKEN':'{{csrf_token()}}'},
+            data: {post_id:post_id },
+            success:function(data){
+                console.log(data.data);
+                if(data.status == 1){
+                    $(heart).toggleClass('fas');
+                    // refresh page
+                    location.reload();
+                }
+            },
+            error: function(jqXHR, textStatus, errorMessage){
+                       alert(errorMessage);
+
+                    }
+        })
+    });
+
+}
+
+</script>
+@endpush
