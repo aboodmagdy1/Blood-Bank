@@ -4,6 +4,7 @@ namespace App\Http\Controllers\front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\DonationRequestRequest;
+use App\Models\Contact;
 use App\Models\DonationRequest;
 use App\Models\Post;
 use Illuminate\Http\Request;
@@ -31,6 +32,27 @@ class MainController extends Controller
     {
         return view('front.about');
     }
+    public function showContactForm()
+    {
+        return view('front.contact');
+    }
+
+    public function submitContact(Request $request)
+    {
+        $rules = [
+            'name' => 'required|string',
+            'email' => 'required|email',
+            'phone' => 'required|string',
+            'subject' => 'required|string',
+            'message' => 'required|string'
+        ];
+        $request->validate($rules);
+
+        // create contact 
+        Contact::create($request->all());
+        return redirect()->back()->with('success', 'تم ارسال الرسالة بنجاح');
+    }
+
 
     // Posts 
     public function posts(Request $request)

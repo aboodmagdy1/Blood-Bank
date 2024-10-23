@@ -62,7 +62,7 @@
                                         <i class="far fa-comments"></i>
                                         ابلاغ
                                     </a>
-                                    <a class="dropdown-item" href="contact">
+                                    <a class="dropdown-item" href="{{route('front.contact.show')}}">
                                         <i class="fas fa-phone-alt"></i>
                                         تواصل معنا
                                     </a>

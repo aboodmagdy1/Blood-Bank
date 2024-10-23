@@ -25,7 +25,7 @@
                         <a class="nav-link" href="{{route('about')}}">من نحن</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{route('contact-us')}}">اتصل بنا</a>
+                        <a class="nav-link" href="{{route('front.contact.show')}}">اتصل بنا</a>
                     </li>
                 </ul>
                 

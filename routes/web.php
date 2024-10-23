@@ -22,7 +22,11 @@ Route::controller(MainController::class)->group(function () {
     // webiste routes 
     Route::get('/', 'home')->name('home');
     Route::get('/about', 'about')->name('about'); //about the app
-    Route::get('/contact-us', 'contact')->name('contact-us');
+    Route::get('/contact-us', 'showContactForm')->name('front.contact.show');
+    Route::post('/contact-us', 'submitContact')->name('front.contact.submit');
+
+
+
     Route::get('/donation-requests', 'requests')->name('donation-requests');
     Route::get('/donation-requests/{request}', 'showRequest');
 
