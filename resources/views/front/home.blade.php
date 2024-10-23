@@ -117,9 +117,11 @@
                         <div class="form-group">
                             <div class="inside-select">
                                 <select class="form-control" id="exampleFormControlSelect1" name="blood-type-id">
-                                    <option selected disabled>اختر فصيلة الدم</option>
+                                    <option disabled {{ request('blood-type-id') ? '' : 'selected' }}>اختر فصيلة الدم</option>
                                     @foreach ($BloodType->all() as $type )
-                                    <option value="{{$type->id}}">{{$type->name}}</option>
+                                        <option value="{{ $type->id }}" {{ request('blood-type-id') == $type->id ? 'selected' : '' }}>
+                                            {{ $type->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 <i class="fas fa-chevron-down"></i>
@@ -130,9 +132,11 @@
                         <div class="form-group">
                             <div class="inside-select">
                                 <select class="form-control" id="exampleFormControlSelect1" name="city-id">
-                                    <option selected disabled>اختر المدينة</option>
+                                    <option disabled {{ request('city-id') ? '' : 'selected' }}>اختر المدينة</option>
                                     @foreach ($City->all() as $city )
-                                    <option value="{{$city->id}}">{{$city->name}}</option>
+                                        <option value="{{ $city->id }}" {{ request('city-id') == $city->id ? 'selected' : '' }}>
+                                            {{ $city->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 <i class="fas fa-chevron-down"></i>
@@ -145,6 +149,7 @@
                         </button>
                     </div>
                 </form>
+                
                 <div class="patients">
                     @foreach ($requests as $request )
                     <div class="details">
