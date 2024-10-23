@@ -45,9 +45,13 @@ Route::middleware('guest:web-client')->controller(AuthController::class)->group(
 
 Route::middleware('auth-client')->group(function () {
     Route::post('/client-logout', [AuthController::class, 'clientLogout'])->name('client.logout');
+
     Route::get('/donation-requests-create', [MainController::class, 'requestCreateForm'])->name('client.request.create');
     Route::post('/donation-requests-create', [MainController::class, 'requestCreateSubmit'])->name('client.request.createSubmit');
+
+
     Route::post('/toggle-favourite', [MainController::class, 'toggleFavourite'])->name('client.toggleFavourite');
+    Route::get('/my-favourite', [MainController::class, 'myFavourite'])->name('client.myFavourite');
 });
 
 

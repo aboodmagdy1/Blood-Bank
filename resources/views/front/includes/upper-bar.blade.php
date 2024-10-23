@@ -54,7 +54,7 @@
                                         <i class="far fa-bell"></i>
                                         اعدادات الاشعارات
                                     </a>
-                                    <a class="dropdown-item" href="/my-favourite">
+                                    <a class="dropdown-item" href="{{route('client.myFavourite')}}">
                                         <i class="far fa-heart"></i>
                                         المفضلة
                                     </a>

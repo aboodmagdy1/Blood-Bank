@@ -14,6 +14,7 @@ use function App\utils\responseJson;
 class MainController extends Controller
 {
 
+    //-------------------------------------------- General --------------------------------------------
     public function home(Request $request)
     {
         $posts = Post::take(9)->get();
@@ -54,7 +55,8 @@ class MainController extends Controller
     }
 
 
-    // Posts 
+    //-------------------------------------------- Posts  --------------------------------------------
+
     public function posts(Request $request)
     {
         $posts = Post::query();
@@ -64,6 +66,7 @@ class MainController extends Controller
         $posts = $posts->paginate(5);
         return view('front.posts', ['posts' => $posts]);
     }
+
     public function showPost(string $id)
     {
         $post = Post::findOrFail($id);
@@ -79,7 +82,16 @@ class MainController extends Controller
         return responseJson(1, 'success', $toggle);
     }
 
-    //  Donation Requests 
+    public function myFavourite(Request $request)
+    {
+        $user = $request->user('web-client');
+        $posts = $user->posts()->paginate(5);
+        return view('front.myFavourite', ['posts' => $posts]);
+    }
+
+
+
+    //  ------------------------------------- Donation Requests -------------------------------------
     public function requests(Request $request)
     {
         $requests = DonationRequest::query();
