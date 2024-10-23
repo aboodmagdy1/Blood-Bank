@@ -105,7 +105,7 @@
                                             <p>عنوان المشفى</p>
                                         </div>
                                         <div class="special-light light">
-                                            <p>{{$request->Hospital_address}}</p>
+                                            <p>{{$request->hospital_address}}</p>
                                         </div>
                                     </div>
                                 </div>

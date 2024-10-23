@@ -16,7 +16,7 @@ class CreateDonationRequestsTable extends Migration
 			$table->string('patient_phone');
 			$table->integer('city_id')->unsigned();
 			$table->string('hospital_name')->nullable();
-			$table->string('Hospital_address')->nullable();
+			$table->string('hospital_address')->nullable();
 			$table->integer('blood_type_id')->unsigned();
 			$table->integer('patient_age');
 			$table->text('details')->nullable();

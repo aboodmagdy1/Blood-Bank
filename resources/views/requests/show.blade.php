@@ -82,7 +82,7 @@
                                                     <div class="card-body">
                                                         <!-- Add hospital details here -->
                                                         <p class="text-muted">Hospital Name: <span class="text-primary">{{$record->hospital_name}}</span></p>
-                                                        <p class="text-muted">Address: <span class="text-primary">{{$record->Hospital_address}}</span></p>
+                                                        <p class="text-muted">Address: <span class="text-primary">{{$record->hospital_address}}</span></p>
                                                        
                                                     </div>
                                                 </div>

@@ -40,7 +40,7 @@
                 <!--I'm a member  -->
 
                 @auth('web-client')
-                    <a href="/donation-request" class="donate">
+                    <a href="{{route('client.request.create')}}" class="donate">
                         <img src="{{asset('front/assets/imgs/transfusion.svg')}}">
                         <p>طلب تبرع</p>
                     </a>
