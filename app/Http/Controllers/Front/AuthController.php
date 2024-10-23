@@ -24,8 +24,14 @@ class AuthController extends Controller
             return redirect()->back()->withErrors($request->errors())->withInput();
         }
 
+        // attach client to governorate and blood type
+        $client->governorates()->attach($request->governorate_id);
+        $client->bloodTypes()->attach($request->blood_type_id);
+
         // login the client
         Auth::guard('web-client')->login($client);
+
+
         return redirect()->route('home');
     }
 
