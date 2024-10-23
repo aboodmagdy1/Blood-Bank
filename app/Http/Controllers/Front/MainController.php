@@ -100,7 +100,26 @@ class MainController extends Controller
         ]);
         // 2) store in db
         // 2) create donation request
-        $request = $request->user('web-client')->donationRequests()->create($request->all());
+        $donationRequest = $request->user('web-client')->donationRequests()->create($request->all());
+
+        // 3)notification logic 
+        $clientsIds = $donationRequest->city->governorate->clients()->whereHas('bloodTypes', function ($query) use ($request) {
+            $query->where('blood_types.id', $request->blood_type_id);
+        })->pluck('clients.id')->toArray();
+
+        if (count($clientsIds) > 0) {
+            // 4)attach notification for clients 
+            //  4.1) create notification 
+            $notification = $donationRequest->notification()->create([
+                'title' => '',
+                'content' => $donationRequest->patient_name . ' needs ' . $donationRequest->bags_num . 'bags of : ' . $donationRequest->bloodType->name
+            ]);
+
+            // 4.2) attach clients to notification 
+            $notification->clients()->attach($clientsIds);
+
+            // 4.3) send 
+        }
 
         // 3) redirect to requests page
         return redirect()->back()->with('success', 'تم اضافة طلب التبرع بنجاح');
