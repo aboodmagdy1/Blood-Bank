@@ -44,6 +44,9 @@ Route::middleware('guest:web-client')->controller(AuthController::class)->group(
 
     Route::get('/forgot-password', [AuthController::class, 'showForgotForm'])->name('client.forgot');
     Route::post('/forgot-passowrd', [AuthController::class, 'forgotPassword'])->name('client.forgot.submit');
+
+    Route::get('/reset-password', [AuthController::class, 'showResetForm'])->name('client.reset');
+    Route::post('/reset-passowrd', [AuthController::class, 'resetPassword'])->name('client.reset.submit');
 });
 
 Route::middleware('auth:web-client')->group(function () {

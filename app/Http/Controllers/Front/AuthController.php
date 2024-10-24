@@ -90,6 +90,33 @@ class AuthController extends Controller
         Mail::to($client->email)->send(new ResetPassword($code));
 
         // 4) return password 
-        return redirect()->route('client.forgot')->with('success', 'Password reset code sent to your email.');
+        return redirect()->route('client.reset')->with('success', 'تفقد الايميل الخاص بك ');
+    }
+    public function showResetForm()
+    {
+        return view('front.auth.reset');
+    }
+    public function resetPassword(Request $request)
+    {
+        // 1) validation 
+        $request->validate([
+            'email' => 'required|email|exists:clients,email',
+            'reset_code' => 'required|numeric',
+            'password' => 'required|confirmed'
+        ]);
+        // 2) check if the reset code is correct
+        $client = Client::where('email', $request->email)->first();
+        if ($request->reset_code !== $client->reset_code) {
+            return redirect()->back()->withErrors(['reset_code' => 'كود خاطئ أو منتهي الصلاحيه']);
+        }
+
+
+        // 3) update the password 
+        $client->password = $request->password;
+        $client->reset_code = null;
+        $client->save();
+
+        // 4) return response
+        return redirect()->back()->with('success', 'تم تغير كلمة المرور بنجاح');
     }
 }
