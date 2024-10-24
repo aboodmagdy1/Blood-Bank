@@ -50,7 +50,7 @@
                                         <i class="far fa-user"></i>
                                         معلوماتى
                                     </a>
-                                    <a class="dropdown-item" href="/notification-settings">
+                                    <a class="dropdown-item" href="{{route('client.notificationSetting')}}">
                                         <i class="far fa-bell"></i>
                                         اعدادات الاشعارات
                                     </a>

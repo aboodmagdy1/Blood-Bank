@@ -58,6 +58,10 @@ Route::middleware('auth:web-client')->group(function () {
 
     Route::post('/toggle-favourite', [MainController::class, 'toggleFavourite'])->name('client.toggleFavourite');
     Route::get('/my-favourite', [MainController::class, 'myFavourite'])->name('client.myFavourite');
+
+
+    Route::get('/notification-setting', [MainController::class, 'showNotificationSettingPage'])->name('client.notificationSetting');
+    Route::patch('/notification-setting', [MainController::class, 'updateNotificationSetting'])->name('client.notificationSetting.update');
 });
 
 

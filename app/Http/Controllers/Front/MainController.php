@@ -162,4 +162,30 @@ class MainController extends Controller
         // 3) redirect to requests page
         return redirect()->back()->with('success', 'تم اضافة طلب التبرع بنجاح');
     }
+
+
+
+    // ------------------------------------- Notification Setting -------------------------------------
+    public function showNotificationSettingPage()
+    {
+        return view('front.notification');
+    }
+    public function updateNotificationSetting(Request $request)
+    {
+        // validation 
+        $request->validate([
+            'governorate_list' => 'array',
+            'governorate_list.*' => 'exists:governorates,id',
+            'type_list' => 'array',
+            'type_list.*' => 'exists:blood_types,id'
+        ]);
+        // update
+        $client = $request->user('web-client');
+        $client->governorates()->sync($request->input('governorate_list'));
+        $client->bloodTypes()->sync($request->input('type_list'));
+        $client->save();
+
+        //redirect
+        return redirect()->back()->with('success', 'تم تحديث الاعدادات بنجاح');
+    }
 }
