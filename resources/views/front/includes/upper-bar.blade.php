@@ -46,7 +46,7 @@
                                         <i class="fas fa-home"></i>
                                         الرئيسية
                                     </a>
-                                    <a class="dropdown-item" href="/profile">
+                                    <a class="dropdown-item" href="{{route('client.profile')}}">
                                         <i class="far fa-user"></i>
                                         معلوماتى
                                     </a>
@@ -58,10 +58,7 @@
                                         <i class="far fa-heart"></i>
                                         المفضلة
                                     </a>
-                                    <a class="dropdown-item" href="report">
-                                        <i class="far fa-comments"></i>
-                                        ابلاغ
-                                    </a>
+
                                     <a class="dropdown-item" href="{{route('front.contact.show')}}">
                                         <i class="fas fa-phone-alt"></i>
                                         تواصل معنا

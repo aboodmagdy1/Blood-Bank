@@ -51,6 +51,8 @@ Route::middleware('guest:web-client')->controller(AuthController::class)->group(
 
 Route::middleware('auth:web-client')->group(function () {
     Route::post('/client-logout', [AuthController::class, 'clientLogout'])->name('client.logout');
+    Route::get('/client-profile', [AuthController::class, 'showProfile'])->name('client.profile');
+    Route::patch('/client-profile', [AuthController::class, 'profile'])->name('client.profile.update');
 
     Route::get('/donation-requests-create', [MainController::class, 'requestCreateForm'])->name('client.request.create');
     Route::post('/donation-requests-create', [MainController::class, 'requestCreateSubmit'])->name('client.request.createSubmit');

@@ -119,4 +119,29 @@ class AuthController extends Controller
         // 4) return response
         return redirect()->back()->with('success', 'تم تغير كلمة المرور بنجاح');
     }
+
+    public function showProfile()
+    {
+        $client = request()->user('web-client');
+
+        return view('front.auth.profile', compact('client'));
+    }
+
+    public function profile(Request $request)
+    {
+        $client = request()->user('web-client');
+
+        $request->validate([
+            'name' => 'required',
+            'phone' => 'required',
+            'last_donation_date' => 'required',
+            'blood_type_id' => 'exists:blood_types,id',
+            'password' => 'required|confirmed'
+        ]);
+
+        $client->update($request->all());
+        $client->bloodTypes()->sync($request->blood_type_id);
+
+        return redirect()->back()->with('success', 'تم تحديث البيانات بنجاح');
+    }
 }
