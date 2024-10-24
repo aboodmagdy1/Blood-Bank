@@ -125,7 +125,7 @@
        
       </div>
 
-    @endguest
+    @endauth
 @stop
 
 @push('scripts')

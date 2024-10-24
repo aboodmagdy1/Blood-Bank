@@ -43,7 +43,7 @@ Route::middleware('guest:web-client')->controller(AuthController::class)->group(
     Route::post('/client-login', [AuthController::class, 'clientLogin'])->name('client.login.submit');
 });
 
-Route::middleware('auth-client')->group(function () {
+Route::middleware('auth:web-client')->group(function () {
     Route::post('/client-logout', [AuthController::class, 'clientLogout'])->name('client.logout');
 
     Route::get('/donation-requests-create', [MainController::class, 'requestCreateForm'])->name('client.request.create');
@@ -57,7 +57,7 @@ Route::middleware('auth-client')->group(function () {
 
 
 // Dashboard Routes 
-Route::middleware(['auth:web', 'role:admin'])->prefix('admin')->group(function () {
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->group(function () {
     // Governorates
     Route::resource('governorate', GovernorateController::class);
     Route::resource('city', CityController::class);
