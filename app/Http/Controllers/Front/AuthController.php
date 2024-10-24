@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Mail\ResetPassword;
 use App\Models\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class AuthController extends Controller
 {
@@ -63,5 +65,31 @@ class AuthController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
         return redirect()->route('home');
+    }
+
+
+    public function showForgotForm()
+    {
+        return view('front.auth.forgot');
+    }
+    public function forgotPassword(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|exists:clients,email'
+        ]);
+
+        // 2) send the reset link email 
+        $client = Client::where('email', $request->email)->first();
+        $code = rand(111111, 999999);
+
+        $client->reset_code = $code;
+        $client->save();
+
+        //3) send the email
+
+        Mail::to($client->email)->send(new ResetPassword($code));
+
+        // 4) return password 
+        return redirect()->route('client.forgot')->with('success', 'Password reset code sent to your email.');
     }
 }

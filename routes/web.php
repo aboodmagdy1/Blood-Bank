@@ -41,6 +41,9 @@ Route::middleware('guest:web-client')->controller(AuthController::class)->group(
 
     Route::get('/client-login', [AuthController::class, 'showClientLoginForm'])->name('client.login');
     Route::post('/client-login', [AuthController::class, 'clientLogin'])->name('client.login.submit');
+
+    Route::get('/forgot-password', [AuthController::class, 'showForgotForm'])->name('client.forgot');
+    Route::post('/forgot-passowrd', [AuthController::class, 'forgotPassword'])->name('client.forgot.submit');
 });
 
 Route::middleware('auth:web-client')->group(function () {
