@@ -3,10 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Notifications\DonationRequestNotification;
 use App\Http\Requests\DonationRequestRequest;
 use App\Models\DonationRequest;
 use App\Models\Token;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Notification;
 
 use function App\utils\responseJson;
 
@@ -49,39 +53,38 @@ class DonationRequestController extends Controller
         }
 
         //3) find suitable clients for this request   
-        $clientsIds = $donationRequest->city->governorate
+        // query
+        $clients = $donationRequest->city->governorate
             ->clients()->whereHas('bloodTypes', (function ($query) use ($request) {
                 $query->where('blood_types.id', $request->blood_type_id);
-            }))->pluck('clients.id')->toArray();
-
+            }))->get();
+        $clientsIds = $clients->pluck('id')->toArray();
 
         // 4) send notification to clients
         if (count($clientsIds) > 0) {
-            // 4.1) create notification
-            $notification = $donationRequest->notification()->create(
-                [
-                    'title' => 'New Donation Request',
-                    'content' =>
-                    $donationRequest->bloodType->name . ' blood type is needed in '
-                        . $donationRequest->city->name . 'for pationt :' . $donationRequest->patient_name,
-                ]
-            );
+            try {
+                DB::beginTransaction();
+                // 4.1) create notification
+                $notification = $donationRequest->notification()->create(
+                    [
+                        'title' => 'من فضلك ساعد فى انقاذ حياة احد',
+                        'content' =>
+                        $donationRequest->patient_name . ' يحتاج '
+                            . $donationRequest->bags_num . ' أكياس دم فصيلة ' . $donationRequest->bloodType->name,
+                    ]
+                );
 
-            // 4.2 attach notification to clients ( determine who will receive this notification )
-            $notification->clients()->attach($clientsIds);
+                // 4.2 attach notification to clients ( determine who will receive this notification )
+                $notification->clients()->attach($clientsIds);
 
-
-
-            // 4.3 send notification 
-
-            // $tokens = Token::where('token', '!=', '')
-            //     ->whereIn('client_id', $clientsIds)->pluck('token')->toArray();
-
-
+                // 4.3 send notification 
+                Notification::send($clients, new DonationRequestNotification($notification));
+                DB::commit();
+            } catch (Exception $e) {
+                DB::rollBack();
+                return responseJson(0, $e->getMessage());
+            }
         }
-
-
-
 
         return responseJson(1, 'Donation request created successfully', $donationRequest);
     }

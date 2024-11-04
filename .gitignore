@@ -5,6 +5,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/storage/app/json/fcm.json
 .env
 .env.backup
 .env.production

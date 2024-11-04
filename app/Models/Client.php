@@ -3,11 +3,10 @@
 namespace App\Models;
 
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\CanResetPassword;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Notifications\Notifiable;
 
 class Client extends Authenticatable implements CanResetPassword
 {
@@ -66,5 +65,14 @@ class Client extends Authenticatable implements CanResetPassword
 
             set: fn($value) => bcrypt($value)
         );
+    }
+
+    public function getFCMTokens()
+    {
+        return $this->tokens()->pluck('token')->toArray();
+    }
+    public function routeNotificationForFcm()
+    {
+        return $this->getFCMTokens();
     }
 }
