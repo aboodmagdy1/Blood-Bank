@@ -33,20 +33,32 @@ class PostController extends Controller
     public function store(Request $request)
     {
         // validate the request
+        // title and content are translated in the json file
         $request->validate([
-            'title' => 'required|string|max:100',
+            'title' => 'required|array',
+            'title.*' => 'required|string|max:100',
             'category_id' => 'required|exists:categories,id',
-            'content' => 'required|string|max:255',
+            'content' => 'required|array',
+            'content.*' => 'required|string|max:255',
         ], [
             'title.required' => 'العنوان مطلوب',
+            'title.*.required' => 'العنوان مطلوب',
             'category_id' => 'اسم الفئة مطلوب',
+
             'category_id.exists' => 'اسم الفئة غير موجود',
             'content.required' => 'المحتوي مطلوب',
+            'content.ar.required' => 'المحتوي باللغه العربيه مطلوب',
+            'content.en.required' => 'المحتوي باللغه الانجليزيه مطلوب',
             'content.max' => 'المحتوي يجب الا يزيد عن 255 حرف',
         ]);
 
         // store the record
-        Post::create($request->all());
+        $post = new Post();
+        $post->setTranslations('title', $request->title);
+        $post->setTranslations('content', $request->content);
+        $post->category_id = $request->category_id;
+        $post->save();
+
 
         // redirect to the index page
         return redirect()->route('post.index')->with('success', 'تم اضافه المقال بنجاح');
