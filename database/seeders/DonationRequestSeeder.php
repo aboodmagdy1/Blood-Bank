@@ -1,0 +1,18 @@
+<?php
+
+namespace Database\Seeders;
+
+use Database\Factories\DonationRequestFactory;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Seeder;
+
+class DonationRequestSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        DonationRequestFactory::times(20)->create();
+    }
+}
