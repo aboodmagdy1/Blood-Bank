@@ -9,6 +9,8 @@ use Illuminate\Support\Str;
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\User>
  */
+
+  //NOTE: This factory is of type Factory Method Pattern   
 class UserFactory extends Factory
 {
     /**

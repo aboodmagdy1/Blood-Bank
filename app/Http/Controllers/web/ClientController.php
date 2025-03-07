@@ -5,6 +5,7 @@ namespace App\Http\Controllers\web;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use App\QueryBuilders\ClientQueryBuilder;
 
 class ClientController extends Controller
 {
@@ -13,20 +14,20 @@ class ClientController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Client::query();
+        $query = (new ClientQueryBuilder());//NOTE : Use Filter pattern =>create object by executing number of steps 
 
         // Apply city filter if selected
         if ($request->filled('city_id')) {
-            $query->where('city_id', $request->city_id);
+            $query->city($request->city_id);//##:step 1
         }
 
         // Apply blood type filter if selected
         if ($request->filled('blood_type_id')) {
-            $query->where('blood_type_id', $request->blood_type_id);
+            $query->bloodType($request->blood_type_id);//##:step 2
         }
 
         // Get the filtered records
-        $records = $query->paginate(20);
+        $records = $query->paginate(20);//##:step 3
 
         return view('clients.index', compact('records'));
     }
