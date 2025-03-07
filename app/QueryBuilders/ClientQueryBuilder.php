@@ -5,7 +5,7 @@ namespace App\QueryBuilders;
 use App\Models\Client;
 use Illuminate\Database\Eloquent\Builder;
 
-// NOTE: impelement builder pattern
+//NOTE: impelement builder pattern
 class ClientQueryBuilder
 {
     protected Builder $query;
