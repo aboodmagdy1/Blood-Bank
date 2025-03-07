@@ -15,22 +15,24 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        // Setting::create([
-        //     'notification_setting_text' => 'notification_setting_text content',
-        //     'about_app' => 'about_app_text content',
-        //     'phone' => 'phone content',
-        //     'email' => 'email content',
-        //     'fb_link' => 'fb_link content',
-        //     'tw_link' => 'tw_link content',
-        //     'insta_link' => 'insta_link content',
-        //     'youtube_link' => 'youtube_link content',
-        //     'watts_link' => 'whats_link content',
+        // TODO:refactor this to factory 
+        Setting::create([
+            'notification_setting_text' => 'notification_setting_text content',
+            'about_app' => 'about_app_text content',
+            'phone' => 'phone content',
+            'email' => 'email content',
+            'fb_link' => 'fb_link content',
+            'tw_link' => 'tw_link content',
+            'insta_link' => 'insta_link content',
+            'youtube_link' => 'youtube_link content',
+            'watts_link' => 'whats_link content',
 
-        // ]);
+        ]);
 
         $this->call([
-            // UserSeeder::class,
             RoleSeeder::class,
+            UserSeeder::class,
+            PostSeeder::class
         ]);
     }
 }
