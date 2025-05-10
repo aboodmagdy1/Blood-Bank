@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactRequest;
+use App\Http\Resources\Setting as ResourcesSetting;
 use App\Models\BloodType;
 use App\Models\Category;
 use App\Models\City;
@@ -86,15 +87,18 @@ class MainController extends Controller
     public function contactInfo()
     {
         $settings = Setting::first();
-        return responseJson(1, 'contact info', [
-            "phone" => $settings->phone,
-            "email" => $settings->email,
-            "fb_link" => $settings->fb_link,
-            "tw_link" => $settings->tw_link,
-            "insta_link" => $settings->insta_link,
-            "watts_link" => $settings->watts_link,
-            "youtube_link" => $settings->youtube_link,
-        ]);
+        // Refactor-6: refactor response to resorce 
+        // return responseJson(1, 'contact info', [
+        //     "phone" => $settings->phone,
+        //     "email" => $settings->email,
+        //     "fb_link" => $settings->fb_link,
+        //     "tw_link" => $settings->tw_link,
+        //     "insta_link" => $settings->insta_link,
+        //     "watts_link" => $settings->watts_link,
+        //     "youtube_link" => $settings->youtube_link,
+        // ]);
+
+        return new ResourcesSetting($settings);
     }
     public function about()
     {
