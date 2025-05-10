@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -31,20 +32,20 @@ class RoleController extends Controller
      * Store a newly created resource in storage.
      */
 
-     //Refactor-4 : move validation to request class
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-
+        
+        //Refactor-4 : move validation to request class
         // validate the request
-        $request->validate([
-            'name' => 'required|string|unique:roles,name',
-            'permissions_list' => 'required|array'
-        ], [
-            'name.required' => 'اسم الرتبه مطلوب',
-            'name.unique' => 'هذا الاسم موجود بالفعل',
-            'permissions_list.required' => 'الصلاحيات مطلوبه',
+        // $request->validate([
+        //     'name' => 'required|string|unique:roles,name',
+        //     'permissions_list' => 'required|array'
+        // ], [
+        //     'name.required' => 'اسم الرتبه مطلوب',
+        //     'name.unique' => 'هذا الاسم موجود بالفعل',
+        //     'permissions_list.required' => 'الصلاحيات مطلوبه',
 
-        ]);
+        // ]);
 
         // store the record
         Role::create([
@@ -77,19 +78,21 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
-     //Refactor-5 : move validation to request class
 
-    public function update(Request $request, string $id)
+    public function update(RoleRequest $request, string $id)
     {
+
+             //Refactor-5 : move validation to request class
+
         // validate the request
-        $request->validate([
-            'name' => 'required|string|unique:roles,name,' . $id,
-            'permissions_list' => 'required|array'
-        ], [
-            'name.required' => 'اسم الرتبه مطلوب',
-            'name.unique' => 'هذا الاسم موجود بالفعل',
-            'permissions_list.required' => 'الصلاحيات مطلوبه',
-        ]);
+        // $request->validate([
+        //     'name' => 'required|string|unique:roles,name,' . $id,
+        //     'permissions_list' => 'required|array'
+        // ], [
+        //     'name.required' => 'اسم الرتبه مطلوب',
+        //     'name.unique' => 'هذا الاسم موجود بالفعل',
+        //     'permissions_list.required' => 'الصلاحيات مطلوبه',
+        // ]);
 
         // update the record
         $role =  Role::findOrFail($id);
