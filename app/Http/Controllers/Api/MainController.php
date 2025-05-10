@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContactRequest;
 use App\Models\BloodType;
 use App\Models\Category;
 use App\Models\City;
@@ -54,14 +55,16 @@ class MainController extends Controller
         $settings = Setting::all();
         return responseJson(1, 'success', $settings);
     }
-    public function contact(Request $request)
+
+    //Refactor-1  : remove validation to request class 
+    public function contact(ContactRequest $request)
     {
         // 1)validate the request
-        $rules = [
-            'subject' => ['required', 'string'],
-            'message' => ['required', 'string']
-        ];
-        $request->validate($rules);
+        // $rules = [
+        //     'subject' => ['required', 'string'],
+        //     'message' => ['required', 'string']
+        // ];
+        // $request->validate($rules);
 
         // 2)  get client data to send with request 
         $client = $request->user();

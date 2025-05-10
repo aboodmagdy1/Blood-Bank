@@ -30,6 +30,8 @@ class RoleController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+     //Refactor-4 : move validation to request class
     public function store(Request $request)
     {
 
@@ -75,6 +77,8 @@ class RoleController extends Controller
     /**
      * Update the specified resource in storage.
      */
+     //Refactor-5 : move validation to request class
+
     public function update(Request $request, string $id)
     {
         // validate the request

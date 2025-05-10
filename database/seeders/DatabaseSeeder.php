@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        // TODO:refactor this to factory 
+        //Refactor-3: make a factory for it  
         Setting::create([
             'notification_setting_text' => 'notification_setting_text content',
             'about_app' => 'about_app_text content',

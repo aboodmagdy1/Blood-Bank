@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\NotifyDooners;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Notifications\DonationRequestNotification;
 use App\Http\Requests\DonationRequestRequest;
@@ -78,7 +79,10 @@ class DonationRequestController extends Controller
                 $notification->clients()->attach($clientsIds);
 
                 // 4.3 send notification 
-                Notification::send($clients, new DonationRequestNotification($notification));
+                //Refactor-2 : move to event  to be done on the back ground  
+                // Notification::send($clients, new DonationRequestNotification($notification));
+                NotifyDooners::dispatch($clients,$notification);
+
                 DB::commit();
             } catch (Exception $e) {
                 DB::rollBack();
