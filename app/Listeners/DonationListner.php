@@ -23,6 +23,7 @@ class DonationListner
      */
     public function handle(NotifyDooners $event): void
     {
-        Notification::send($event->clients,new DonationRequestNotification($event->notification));
+        //inactive because of client_email of fcm not exist
+        // Notification::send($event->clients,new DonationRequestNotification($event->notification));
     }
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('tw_link')->nullable();
             $table->string('insta_link')->nullable();
             $table->string('youtube_link')->nullable();
-            $table->string('whats_link')->nullable();
+            $table->string('watts_link')->nullable();
             $table->timestamps();
         });
     }

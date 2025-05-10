@@ -11,6 +11,7 @@ use App\Models\Token;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Notification;
 
 use function App\utils\responseJson;
@@ -43,12 +44,14 @@ class DonationRequestController extends Controller
 
     public function store(DonationRequestRequest $request)
     {
+        //Refactor-7 :refactor all the metod 
 
         // 1) validation 
         $data = $request->validated();
+        $data['client_id'] = Auth::user()->id;
 
         // 2) create donation request
-        $donationRequest = $request->user()->donationRequests()->create($request->all());
+        $donationRequest = DonationRequest::create($data);
         if (!$donationRequest) {
             return responseJson(0, 'Failed to create donation request');
         }
@@ -56,8 +59,8 @@ class DonationRequestController extends Controller
         //3) find suitable clients for this request   
         // query
         $clients = $donationRequest->city->governorate
-            ->clients()->whereHas('bloodTypes', (function ($query) use ($request) {
-                $query->where('blood_types.id', $request->blood_type_id);
+            ->clients()->whereHas('bloodTypes', (function ($query) use ($data) {
+                $query->where('blood_types.id', $data["blood_type_id"]);
             }))->get();
         $clientsIds = $clients->pluck('id')->toArray();
 
@@ -86,7 +89,7 @@ class DonationRequestController extends Controller
                 DB::commit();
             } catch (Exception $e) {
                 DB::rollBack();
-                return responseJson(0, $e->getMessage());
+                return responseJson(0, $e->getMessage().' '.$e->getLine().' '.$e->getFile());
             }
         }
 

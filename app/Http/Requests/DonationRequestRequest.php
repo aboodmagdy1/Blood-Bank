@@ -11,7 +11,7 @@ class DonationRequestRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return $this->user() ? true : false;
+        return true;
     }
 
     /**
