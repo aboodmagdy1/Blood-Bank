@@ -2,13 +2,21 @@
 
 namespace Database\Factories;
 
+use App\Models\Setting;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Model>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Setting>
  */
-class SettingsFactory extends Factory
+class SettingFactory extends Factory
 {
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Setting::class;
+
     /**
      * Define the model's default state.
      *
@@ -26,7 +34,6 @@ class SettingsFactory extends Factory
             'insta_link' => 'insta_link content',
             'youtube_link' => 'youtube_link content',
             'watts_link' => 'whats_link content',
-
         ];
     }
 }
