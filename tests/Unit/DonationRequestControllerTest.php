@@ -117,13 +117,14 @@ class DonationRequestControllerTest extends TestCase
                             'patient_phone' => '0987654321',
                             'hospital_name' => 'General Hospital',
                             'hospital_address' => '123 Main St',
-                            'blood_type_id' => 1,
+                            'blood_type_id' => $this->bloodType->id,
                             'patient_age' => 30,
                             'details' => 'Urgent need for blood',
                             'bags_num' => 2,
                             'latitude' => '30.03333300',
                             'longitude' => '31.23333400',
-                            'client_id' => 1
+                            'client_id' => $this->client->id
+
                         ]
                     ]
                 ]
