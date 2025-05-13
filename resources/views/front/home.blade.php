@@ -59,7 +59,7 @@
             <div class="col-lg-6 text-center">
                 <p>
                     <span>بنك الدم</span> 
-                    {{$setting->about_app}}
+
                 </p>
             </div>
             

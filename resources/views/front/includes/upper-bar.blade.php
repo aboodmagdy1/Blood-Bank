@@ -11,10 +11,6 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="social">
                         <div class="icons">
-                            <a href="{{ $setting->fb_link }}" class="facebook"><i class="fab fa-facebook-f"></i></a>
-                            <a href="{{ $setting->insta_link }}" class="instagram"><i class="fab fa-instagram"></i></a>
-                            <a href="{{ $setting->tw_link }}" class="twitter"><i class="fab fa-twitter"></i></a>
-                            <a href="{{ $setting->watts_link }}" class="whatsapp"><i class="fab fa-whatsapp"></i></a>
                         </div>
                     </div>
                 </div>
@@ -24,11 +20,9 @@
                     <div class="info" dir="ltr">
                         <div class="phone">
                             <i class="fas fa-phone-alt"></i>
-                            <p>{{ $setting->phone }}</p>
                         </div>
                         <div class="e-mail">
                             <i class="far fa-envelope"></i>
-                            <p>{{ $setting->email }}</p>
                         </div>
                     </div>
 

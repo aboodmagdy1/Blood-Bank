@@ -7,7 +7,6 @@
                     <img src="{{asset('front/assets/imgs/logo.png')}}">
                     <h4>بنك الدم</h4>
                     <p>
-{{$setting->about_app}}                    </p>
                 </div>
                 <div class="pages col-md-4">
                     <div class="list-group" id="list-tab" role="tablist">
